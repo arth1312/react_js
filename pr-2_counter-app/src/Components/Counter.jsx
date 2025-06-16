@@ -14,7 +14,7 @@ const Counter = () => {
        setCount(count - 1 )
         }
         else if(count == 0){
-            alert("counter is alrady zero")
+            alert("Counter already at 0")
         }
 
     };
