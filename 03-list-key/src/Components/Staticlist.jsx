@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Staticlist = () => {
+const Staticlist = ({list}) => {
     return (
         <div>
             <h1>Static List</h1>

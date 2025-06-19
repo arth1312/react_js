@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import './App.css'
-import Dynamiclist from './Components/Dynamiclist'
 import Staticlist from './Components/Staticlist'
+import Dynamiclist from './Components/Dynamiclist'
 
 function App() {
     const[list, setList] = useState(['Home', 'About', 'Contact', 'Services', 'Blog']);
@@ -9,7 +10,7 @@ function App() {
     <>
       <div>
         <Staticlist list={list}/>
-        <Dynamiclist />
+        <Dynamiclist list={list}/>
       </div>
     </>
   )
