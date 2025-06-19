@@ -13,7 +13,7 @@ const Events = () => {
     }
 
     const handelMouseLeave = () => {
-        console.log("Mouse Leave");
+        console.log("Mouse Leave"); 
     }
 
     return (
