@@ -1,0 +1,15 @@
+h1{
+    color: black;
+    margin-bottom: 20px;
+}
+label{
+    color: black;
+}
+button{
+    color: white;
+}
+button:hover{
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
+}
