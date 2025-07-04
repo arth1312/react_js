@@ -1,0 +1,35 @@
+.form-wrapper {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f8f9fa; /* light gray background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-wrapper h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+button[type="submit"] {
+    background-color: #fd9d3e;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 6px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #e0872e;
+    color: white;
+}
