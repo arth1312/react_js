@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import './sessionCRUD.css'
+import ProductDetail from "./ProductDetails";
+import generateUniqueId from 'generate-unique-id';
+
+const getSotrageData = () => {
+    return JSON.parse(sessionStorage.getItem("Products")) || []
+}
 
 const Products = () => {
     const intialState = {
+        id: "",
         title: "",
         desc: "",
         price: "",
@@ -11,6 +18,7 @@ const Products = () => {
         image: ""
     }
     const [inputForm, setInputForm] = useState(intialState);
+    const [productData, setProductData] = useState(getSotrageData());
 
     const handleChanged = (e) => {
         const { name, value } = e.target;
@@ -22,9 +30,18 @@ const Products = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log("Submitted : => ", inputForm);
+        let id = generateUniqueId({
+            length: 6,
+            useLetters: false
+        });
+        inputForm.id = id
+        setProductData([...productData, inputForm]);
+        setInputForm(intialState);
     }
+
+    useEffect(() => {
+        sessionStorage.setItem("Products", JSON.stringify(productData));
+    }, [productData])
 
     return (
         <>
@@ -85,6 +102,17 @@ const Products = () => {
 
                         <Button type="submit">Add Product</Button>
                     </Form>
+                </div>
+            </Container>
+
+            <Container>
+                <h1>View Data</h1>
+                <div className="d-flex">
+                    {
+                        productData.map(product => (
+                            <ProductDetail product={product} />
+                        ))
+                    }
                 </div>
             </Container>
         </>
