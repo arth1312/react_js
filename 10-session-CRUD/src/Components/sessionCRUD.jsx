@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import './sessionCRUD.css'
-import ProductDetail from "./ProductDetails";
 import generateUniqueId from 'generate-unique-id';
+import BookDetail from "./BookData";
 
 const getSotrageData = () => {
-    return JSON.parse(sessionStorage.getItem("Products")) || []
+    return JSON.parse(sessionStorage.getItem("Books")) || []
 }
 
-const Products = () => {
+const Books = () => {
     const intialState = {
         id: "",
         title: "",
@@ -18,7 +17,8 @@ const Products = () => {
         image: ""
     }
     const [inputForm, setInputForm] = useState(intialState);
-    const [productData, setProductData] = useState(getSotrageData());
+    const [bookData, setBookData] = useState(getSotrageData());
+    const [isEdit, setIsEdit] = useState(false)
 
     const handleChanged = (e) => {
         const { name, value } = e.target;
@@ -30,31 +30,55 @@ const Products = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let id = generateUniqueId({
-            length: 6,
-            useLetters: false
-        });
-        inputForm.id = id
-        setProductData([...productData, inputForm]);
+        if (isEdit) {
+            let updateData = bookData.map(book => {
+                if (book.id == inputForm.id) {
+                    return inputForm
+                } else {
+                    return book
+                }
+            })
+
+            setBookData(updateData);
+            setIsEdit(false);
+        } else {
+            let id = generateUniqueId({
+                length: 6,
+                useLetters: false
+            });
+            inputForm.id = id
+            setBookData([...bookData, inputForm]);
+        }
         setInputForm(intialState);
     }
 
+    const handleDelete = (id) => {
+        let updatedData = bookData.filter(book => book.id != id)
+        setBookData(updatedData);
+    }
+
+    const handleEdit = (id) => {
+        let signleRec = bookData.find(book => book.id == id)
+        setInputForm(signleRec);
+        setIsEdit(true);
+    }
+
     useEffect(() => {
-        sessionStorage.setItem("Products", JSON.stringify(productData));
-    }, [productData])
+        sessionStorage.setItem("Books", JSON.stringify(bookData));
+    }, [bookData])
 
     return (
         <>
             <Container>
-                <h1>Add Product</h1>
+                <h1>Add Book</h1>
                 <div className="form-wrapper">
-                    <Form onSubmit={handleSubmit}>
+                    <Form>
                         <Form.Group as={Row} className="mb-3" >
                             <Form.Label column sm="2">
                                 Title
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" placeholder="Enter Title" name="title" value={inputForm.title} onChange={handleChanged} />
+                                <Form.Control type="text" placeholder="Enter Title" />
                             </Col>
                         </Form.Group>
 
@@ -63,7 +87,7 @@ const Products = () => {
                                 Description
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" placeholder="Enter Description" name="desc" value={inputForm.desc} onChange={handleChanged} />
+                                <Form.Control type="text" placeholder="Enter Description" />
                             </Col>
                         </Form.Group>
 
@@ -72,7 +96,7 @@ const Products = () => {
                                 Price
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="number" placeholder="Enter Price" name="price" value={inputForm.price} onChange={handleChanged} />
+                                <Form.Control type="number" placeholder="Enter Price" />
                             </Col>
                         </Form.Group>
 
@@ -81,12 +105,11 @@ const Products = () => {
                                 Category
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Select aria-label="Default select example" name="category" onChange={handleChanged}>
+                                <Form.Select aria-label="Default select example" name="category">
                                     <option>Select Category</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Fashion">Fashion</option>
-                                    <option value="Mobiles">Mobiles</option>
-                                    <option value="Appliances">Appliances</option>
+                                    <option value="Comic">Comic</option>
+                                    <option value="Story">Story</option>
+                                    <option value="History">History</option>
                                 </Form.Select>
                             </Col>
                         </Form.Group>
@@ -96,21 +119,22 @@ const Products = () => {
                                 Image
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" placeholder="Enter Image URL" name="image" value={inputForm.image} onChange={handleChanged} />
+                                <Form.Control type="text" placeholder="Enter Image URL" />
                             </Col>
                         </Form.Group>
 
-                        <Button type="submit">Add Product</Button>
+                        <Button type="submit">Add Book</Button>
                     </Form>
                 </div>
             </Container>
 
+            <hr />
             <Container>
                 <h1>View Data</h1>
                 <div className="d-flex">
                     {
-                        productData.map(product => (
-                            <ProductDetail product={product} />
+                        bookData.map(book => (
+                            <BookDetail key={book.id} book={book} handleDelete={handleDelete} handleEdit={handleEdit} />
                         ))
                     }
                 </div>
@@ -119,4 +143,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default Books;

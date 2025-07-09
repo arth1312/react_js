@@ -1,35 +1,48 @@
+h1 {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #343a40;
+}
 .form-wrapper {
-    max-width: 700px;
-    margin: 50px auto;
+    background-color: #f8f9fa;
     padding: 30px;
-    background-color: #f8f9fa; /* light gray background */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
 }
-
-.form-wrapper h1 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #333;
+.form-label {
+    font-weight: 600;
+    color: #495057;
 }
-
-.form-control, .form-select {
-    border-radius: 8px;
-    box-shadow: none;
+.form-control,
+.form-select {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s;
 }
-
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
 button[type="submit"] {
-    background-color: #fd9d3e;
+    background: linear-gradient(40deg, #4B0082, #FF7F00);
     border: none;
     padding: 10px 20px;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 6px;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-
-button[type="submit"]:hover {
-    background-color: #e0872e;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s;
     color: white;
+}
+select.form-select option {
+    background-color: #e9ecef;
+    color: #212529;
 }

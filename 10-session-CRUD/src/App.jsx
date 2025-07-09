@@ -1,11 +1,12 @@
 import './App.css'
-import Products from './Components/sessionCRUD'
+import Books from './Components/sessionCRUD'
+
 
 function App() {
 
   return (
     <>
-      <Products />
+      <Books />
     </>
   )
 }
