@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 
 const Counter = () => {
+
+    const { name } = useParams()
 
     const [count, setCount] = useState(0);
 
@@ -30,7 +33,7 @@ const Counter = () => {
 
     return (
         <div>
-            <h1>Counter App : {count}</h1>
+            <h1>Counter App : {count}</h1> {name}
             <button onClick={handalClick}>Increment</button>
             <button onClick={handalDec}>Decrement</button>
         </div>

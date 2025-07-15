@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ControlledComp />} />
         <Route path="/uncontrollcomp" element={<UnControlledComp />} />
-        <Route path="/counter" element={<Counter />} />
+        <Route path="/counter/:name" element={<Counter />} />
         <Route path="/events" element={<Events />} />
         <Route path="/validation" element={<Validation />} />
         <Route path="/*" element={<h1>Page not found</h1>} />
