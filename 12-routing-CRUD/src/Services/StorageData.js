@@ -1,7 +1,7 @@
 export const getStorageData = () => {
-    return JSON.parse(localStorage.getItem("books")) || [];
-};
+    return JSON.parse(localStorage.getItem("products")) || [];
+}
 
 export const setStorageData = (data) => {
-    localStorage.setItem("books", JSON.stringify(data));
-};
+    localStorage.setItem("products", JSON.stringify(data));
+}
