@@ -5,10 +5,28 @@ import { useNavigate } from "react-router";
 
 const Home = () => {
     const [productData, setProductData] = useState([]);
+    const [search, setSearch] = useState("");
     const navigate = useNavigate();
 
     const handleEdit = (id) => {
         navigate(`/edit-product/${id}`);
+    }
+
+    const handleChanged = (e) => {
+        setSearch(e.target.value);
+    };
+
+    const handleSearch = () => {
+        const data = getStorageData();
+        const filteredData = data.filter((p) =>
+            p.title.toLowerCase().includes(search.toLowerCase()) ||
+            p.price.toLowerCase().includes(search.toLowerCase())
+        );
+        setProductData(filteredData);
+        setSearch("");
+    };
+    const handleClear = () => {
+        setProductData(getStorageData());
     }
 
     const handleDelete = (id) => {
@@ -26,7 +44,18 @@ const Home = () => {
     return (
         <>
             <h1>Home</h1>
-            <div className="d-flex">
+            <div className="serch w-50 d-flex justify-content-center gap-2">
+                <input
+                    type="text"
+                    className="px-3 py-2"
+                    value={search}
+                    style={{ width: "60%" }}
+                    onChange={handleChanged}
+                />
+                <Button className="serch-btn" onClick={handleSearch}>Search</Button>
+                <Button className="serch-btn" onClick={handleClear}>Clear</Button>
+            </div>
+            <div className="d-flex flex-wrap justify-content-center">
                 {productData.map((product) => (
                     <Card style={{ width: "18rem", margin: "10px" }}>
                         <Card.Img variant="top" src={product.image} />
