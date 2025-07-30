@@ -4,13 +4,13 @@ import { Link } from "react-router";
 const Header = () => {
     return (
         <>
-            <Navbar className="bg-body-tertiary">
+            <Navbar className="bg-dark mb-5">
                 <Container>
-                    <Navbar.Brand href="/">FlipKart</Navbar.Brand>
+                    <Navbar.Brand href="/" className="text-white">FlipKart</Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
                         <Navbar.Text>
-                            <Link to={"/add-product"}>Add Product</Link>
+                            <Link to={"/add-product"} className="text-decoration-none text-white">Add Product</Link>
                         </Navbar.Text>
                     </Navbar.Collapse>
                 </Container>

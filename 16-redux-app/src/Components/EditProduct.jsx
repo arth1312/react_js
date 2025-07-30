@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct, updateProduct } from "../Services/Actions/productAction";
+import './product.css'
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -46,15 +47,16 @@ const EditProduct = () => {
     }, [id]);
     return (
         <>
-            <Container>
-                <h1>Edit Product</h1>
-                <Form className="mt-4" onSubmit={handleSubmit}>
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
+            <Container className="add-product-container">
+                <h1 className="form-heading">Edit Product</h1>
+                <Form className="product-form mt-4" onSubmit={handleSubmit}>
+                    <Form.Group as={Row} className="form-row mb-3">
+                        <Form.Label column sm="2" className="form-label">
                             Title
                         </Form.Label>
-                        <Col sm="6">
+                        <Col sm="10" className="form-input-col">
                             <Form.Control
+                                className="form-control-input"
                                 type="text"
                                 placeholder="Enter Title"
                                 name="title"
@@ -63,12 +65,13 @@ const EditProduct = () => {
                             />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
+                    <Form.Group as={Row} className="form-row mb-3">
+                        <Form.Label column sm="2" className="form-label">
                             Description
                         </Form.Label>
-                        <Col sm="6">
+                        <Col sm="10" className="form-input-col">
                             <Form.Control
+                                className="form-control-input"
                                 type="text"
                                 placeholder="Enter Description"
                                 name="desc"
@@ -78,12 +81,13 @@ const EditProduct = () => {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
+                    <Form.Group as={Row} className="form-row mb-3">
+                        <Form.Label column sm="2" className="form-label">
                             Price
                         </Form.Label>
-                        <Col sm="6">
+                        <Col sm="10" className="form-input-col">
                             <Form.Control
+                                className="form-control-input"
                                 type="number"
                                 placeholder="Enter Price"
                                 name="price"
@@ -93,12 +97,13 @@ const EditProduct = () => {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
+                    <Form.Group as={Row} className="form-row mb-3">
+                        <Form.Label column sm="2" className="form-label">
                             Category
                         </Form.Label>
-                        <Col sm="6">
+                        <Col sm="10" className="form-input-col">
                             <Form.Select
+                                className="form-select-input"
                                 aria-label="Default select example"
                                 name="category"
                                 onChange={handleChanged}
@@ -112,12 +117,13 @@ const EditProduct = () => {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
+                    <Form.Group as={Row} className="form-row mb-3">
+                        <Form.Label column sm="2" className="form-label">
                             Image
                         </Form.Label>
-                        <Col sm="6">
+                        <Col sm="10" className="form-input-col">
                             <Form.Control
+                                className="form-control-input"
                                 type="text"
                                 placeholder="Enter Image URL"
                                 name="image"
@@ -127,7 +133,7 @@ const EditProduct = () => {
                         </Col>
                     </Form.Group>
 
-                    <Button type="submit">Update Product</Button>
+                    <Button type="submit" className="submit-btn">Update Product</Button>
                 </Form>
             </Container>
         </>
