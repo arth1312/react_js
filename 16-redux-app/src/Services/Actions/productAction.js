@@ -10,3 +10,24 @@ export const getAllProducts = () => {
         type: "GET_ALL_PRODUCTS",
     }
 }
+
+export const deleteProduct = (id) => {
+    return {
+        type: "DELETE_PRODUCT",
+        payload: id
+    }
+}
+
+export const getProduct = (id) => {
+    return {
+        type: "GET_PRODUCT",
+        payload: id
+    }
+}
+
+export const updateProduct = (data) => {
+    return {
+        type: "UPDATE_PRODUCT",
+        payload: data
+    }
+}

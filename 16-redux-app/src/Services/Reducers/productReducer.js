@@ -22,6 +22,38 @@ export const productReducer = (state = initalState, action) => {
                 ...state,
                 products: prods
             }
+        case "DELETE_PRODUCT":
+            let alldata = JSON.parse(localStorage.getItem("products")) || [];
+            alldata = alldata.filter(prod => prod.id != action.payload)
+            localStorage.setItem("products", JSON.stringify(alldata));
+            return {
+                ...state,
+                products: alldata
+            }
+        
+        case "GET_PRODUCT":
+            let alldatas = JSON.parse(localStorage.getItem("products")) || [];
+            let singleRec = alldatas.find(prod => prod.id == action.payload)
+            return {
+                ...state,
+                product: singleRec
+            }
+        
+        case "UPDATE_PRODUCT":
+            let data = JSON.parse(localStorage.getItem("products")) || [];
+            let updatedData = data.map(prod => {
+                if(prod.id == action.payload.id){
+                    return action.payload
+                }else{
+                    return prod
+                }
+            })
+            localStorage.setItem("products", JSON.stringify(updatedData));
+            return {
+                ...state,
+                product: null,
+                products: updatedData
+            }
         default:
             return state;
     }

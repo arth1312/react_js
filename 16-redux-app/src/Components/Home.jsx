@@ -1,11 +1,20 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../Services/Actions/productAction";
+import { deleteProduct, getAllProducts } from "../Services/Actions/productAction";
 import { Button, Table } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 const Home = () => {
     const dispatch = useDispatch();
     const { products } = useSelector((state) => state.productReducer);
+    const navigate = useNavigate();
+    const handleEdit = (id) => {
+        navigate(`/edit-product/${id}`);
+    }
+    const handleDelete = (id) => {
+        dispatch(deleteProduct(id));
+    }
+
     useEffect(() => {
         dispatch(getAllProducts());
     }, []);
@@ -35,10 +44,10 @@ const Home = () => {
                             <img src={prod.image} height={100} />
                         </td>
                         <td>
-                            <Button>Edit</Button>
+                            <Button onClick={() => handleEdit(prod.id)}>Edit</Button>
                         </td>
                         <td>
-                            <Button>Delete</Button>
+                            <Button onClick={() => handleDelete(prod.id)}>Delete</Button>
                         </td>
                     </tr>
                 ))}
