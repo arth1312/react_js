@@ -6,7 +6,12 @@ const initalState = {
 
 
 export const productReducer = (state = initalState, action) => {
-    switch(action.type){
+    switch (action.type) {
+        case "LOADING":
+            return {
+                ...state,
+                isLoading: true
+            }
         case "ADD_PRODUCT":
             let allData = JSON.parse(localStorage.getItem("products")) || [];
             allData.push(action.payload);
@@ -15,12 +20,13 @@ export const productReducer = (state = initalState, action) => {
                 ...state,
                 products: [...state.products, action.payload]
             };
-        
-        case "GET_ALL_PRODUCTS": 
+
+        case "GET_ALL_PRODUCTS":
             let prods = JSON.parse(localStorage.getItem("products")) || [];
             return {
                 ...state,
-                products: prods
+                products: prods,
+                isLoading: false
             }
         case "DELETE_PRODUCT":
             let alldata = JSON.parse(localStorage.getItem("products")) || [];
@@ -30,7 +36,7 @@ export const productReducer = (state = initalState, action) => {
                 ...state,
                 products: alldata
             }
-        
+
         case "GET_PRODUCT":
             let alldatas = JSON.parse(localStorage.getItem("products")) || [];
             let singleRec = alldatas.find(prod => prod.id == action.payload)
@@ -38,13 +44,13 @@ export const productReducer = (state = initalState, action) => {
                 ...state,
                 product: singleRec
             }
-        
+
         case "UPDATE_PRODUCT":
             let data = JSON.parse(localStorage.getItem("products")) || [];
             let updatedData = data.map(prod => {
-                if(prod.id == action.payload.id){
+                if (prod.id == action.payload.id) {
                     return action.payload
-                }else{
+                } else {
                     return prod
                 }
             })

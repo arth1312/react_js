@@ -1,3 +1,9 @@
+export const loading = () => {
+    return {
+        type: "LOADING"
+    }
+}
+
 export const addProduct = (data) => {
     return {
         type: "ADD_PRODUCT",
@@ -29,5 +35,17 @@ export const updateProduct = (data) => {
     return {
         type: "UPDATE_PRODUCT",
         payload: data
+    }
+}
+
+
+// async action
+export const getAllProductAsync = () => {
+    return (dispatch) => {
+        dispatch(loading());
+
+        setTimeout(()=> {
+            dispatch(getAllProducts())
+        }, 6000);
     }
 }

@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getAllProducts } from "../Services/Actions/productAction";
-import { Button, Table } from "react-bootstrap";
+import { deleteProduct, getAllProductAsync, getAllProducts, loading } from "../Services/Actions/productAction";
+import { Button, Spinner, Table } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { products } = useSelector((state) => state.productReducer);
+    const { products, isLoading } = useSelector((state) => state.productReducer);
     const navigate = useNavigate();
     const handleEdit = (id) => {
         navigate(`/edit-product/${id}`);
@@ -16,12 +16,12 @@ const Home = () => {
     }
 
     useEffect(() => {
-        dispatch(getAllProducts());
+        dispatch(getAllProductAsync());
     }, []);
     return (
         <>
             <h2>Home Page</h2>
-            <Table>
+            {isLoading ? <Spinner variant="dark"></Spinner> : <Table>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -51,7 +51,7 @@ const Home = () => {
                         </td>
                     </tr>
                 ))}
-            </Table>
+            </Table>}
         </>
     );
 };
