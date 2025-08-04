@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "id": "02",
+      "fname": "Pro"
+    },
+    {
+      "id": "03",
+      "fname": "Virat",
+      "lname": "Kohli",
+      "email": "virat@test.in"
+    },
+    {
+      "id": "04",
+      "fname": "Nishant",
+      "lname": "Ambaliya",
+      "email": "nishant@test.in"
+    }
+  ],
+  "product": [
+    {
+      "id": "11",
+      "product": "iphone 16",
+      "price": "119900"
+    },
+    {
+      "id": "12",
+      "product": "samsang z fold 7",
+      "price": "186999"
+    },
+    {
+      "id": "13",
+      "product": "samsang s25 ultra",
+      "price": "120000"
+    },
+    {
+      "id": "14",
+      "product": "iphone 16e",
+      "price": "79000"
+    }
+  ]
+}
