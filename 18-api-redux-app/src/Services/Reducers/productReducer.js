@@ -3,7 +3,8 @@ const initalState = {
     product: null,
     isLoading: false,
     isError: "",
-    isCreated: false
+    isCreated: false,
+    isUpdated: false
 }
 
 
@@ -31,6 +32,7 @@ export const productReducer = (state = initalState, action) => {
                 products: action.payload,
                 isLoading: false,
                 isCreated: false,
+                isUpdated: false,
                 isError: ""
             }
 
@@ -39,26 +41,21 @@ export const productReducer = (state = initalState, action) => {
                 ...state,
                 isLoading: false,
                 isCreated: false,
+                isUpdated: false,
                 isError: action.payload
-            }
-
-        case "DELETE_PRODUCT":
-            return {
-                ...state,
-                // products: alldata
             }
 
         case "GET_PRODUCT":
             return {
                 ...state,
-                // product: singleRec
+                product: action.payload
             }
 
         case "UPDATE_PRODUCT":
             return {
                 ...state,
                 product: null,
-                // products: updatedData
+                isUpdated: true,
             }
         default:
             return state;

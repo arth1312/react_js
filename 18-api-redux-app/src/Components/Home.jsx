@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getAllProductAsync, getAllProducts, loading } from "../Services/Actions/productAction";
+import { deleteProductAsync, getAllProductAsync } from "../Services/Actions/productAction";
 import { Button, Spinner, Table } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
@@ -12,7 +12,7 @@ const Home = () => {
         navigate(`/edit-product/${id}`);
     }
     const handleDelete = (id) => {
-        dispatch(deleteProduct(id));
+        dispatch(deleteProductAsync(id));
     }
 
     useEffect(() => {
@@ -33,24 +33,26 @@ const Home = () => {
                         <th colSpan={2}>Actions</th>
                     </tr>
                 </thead>
-                {products.map((prod) => (
-                    <tr>
-                        <td>{prod.id}</td>
-                        <td>{prod.title}</td>
-                        <td>{prod.desc}</td>
-                        <td>{prod.price}</td>
-                        <td>{prod.category}</td>
-                        <td>
-                            <img src={prod.image} height={100} />
-                        </td>
-                        <td>
-                            <Button onClick={() => handleEdit(prod.id)}>Edit</Button>
-                        </td>
-                        <td>
-                            <Button onClick={() => handleDelete(prod.id)}>Delete</Button>
-                        </td>
-                    </tr>
-                ))}
+                <tbody>
+                    {products.map((prod) => (
+                        <tr key={prod.id}>
+                            <td>{prod.id}</td>
+                            <td>{prod.title}</td>
+                            <td>{prod.desc}</td>
+                            <td>{prod.price}</td>
+                            <td>{prod.category}</td>
+                            <td>
+                                <img src={prod.image} height={100} />
+                            </td>
+                            <td>
+                                <Button onClick={() => handleEdit(prod.id)}>Edit</Button>
+                            </td>
+                            <td>
+                                <Button onClick={() => handleDelete(prod.id)}>Delete</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </Table>}
         </>
     );

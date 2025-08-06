@@ -1,12 +1,20 @@
 {
   "products": [
     {
-      "id": "448289",
-      "title": "Samsang",
+      "id": "719379",
+      "title": "Samsang S25 Ultra",
       "desc": "smart phone with AI",
-      "price": "120000",
+      "price": "151200",
       "category": "Mobiles",
       "image": "https://www.91-img.com/gallery_images_uploads/d/b/dbcb115900f9acfc14138f10b6b7c9320d76a9aa.jpg?tr=h-271,c-at_max,q-70,pr-true"
+    },
+    {
+      "id": "164490",
+      "title": "iphone 16",
+      "desc": "smart",
+      "price": "152000",
+      "category": "Mobiles",
+      "image": "https://iplanet.one/cdn/shop/files/iPhone_16_Black_PDP_Image_Position_1__en-IN_6a3dc63f-e8f2-4111-811a-6d5d8e643038.jpg?v=1727247682"
     }
   ]
 }
