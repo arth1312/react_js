@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductAsync, updateProductAsync } from "../Services/Actions/productAction";
+import { uploadImage } from "../Services/imageUpload";
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -26,6 +27,15 @@ const EditProduct = () => {
             [name]: value,
         });
     };
+
+    const handleFileChanged = async (e) => {
+        let imagePath = await uploadImage(e.target.files[0]);
+
+        setInputForm({
+            ...inputForm,
+            image: imagePath,
+        });
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -123,11 +133,10 @@ const EditProduct = () => {
                         </Form.Label>
                         <Col sm="6">
                             <Form.Control
-                                type="text"
+                                type="file"
                                 placeholder="Enter Image URL"
                                 name="image"
-                                value={inputForm.image}
-                                onChange={handleChanged}
+                                onChange={handleFileChanged}
                             />
                         </Col>
                     </Form.Group>
