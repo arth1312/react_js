@@ -10,7 +10,8 @@ const EditProduct = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { product, isUpdated } = useSelector((state) => state.productReducer);
-    const intialState = {
+
+    const initialState = {
         id: "",
         title: "",
         desc: "",
@@ -18,9 +19,10 @@ const EditProduct = () => {
         category: "",
         image: "",
     };
-    const [inputForm, setInputForm] = useState(intialState);
 
-    const handleChanged = (e) => {
+    const [inputForm, setInputForm] = useState(initialState);
+
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setInputForm({
             ...inputForm,
@@ -28,14 +30,21 @@ const EditProduct = () => {
         });
     };
 
-    const handleFileChanged = async (e) => {
-        let imagePath = await uploadImage(e.target.files[0]);
-
-        setInputForm({
-            ...inputForm,
-            image: imagePath,
-        });
-    }
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+            const uploadedUrl = await uploadImage(file);
+            if (uploadedUrl) {
+                setInputForm(prev => ({ ...prev, image: uploadedUrl }));
+            } else {
+                alert("Image upload failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("Image upload failed. Please try again.");
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,105 +55,113 @@ const EditProduct = () => {
         if (isUpdated) {
             navigate("/");
         }
-    }, [isUpdated]);
+    }, [isUpdated, navigate]);
 
     useEffect(() => {
         if (product) {
-            setInputForm(product)
+            setInputForm(product);
         }
-    }, [product])
+    }, [product]);
 
     useEffect(() => {
         if (id) {
             dispatch(getProductAsync(id));
         }
-    }, [id]);
+    }, [id, dispatch]);
+
     return (
-        <>
-            <Container>
-                <h1>Edit Product</h1>
-                <Form className="mt-4" onSubmit={handleSubmit}>
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
-                            Title
-                        </Form.Label>
-                        <Col sm="6">
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter Title"
-                                name="title"
-                                value={inputForm.title}
-                                onChange={handleChanged}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
-                            Description
-                        </Form.Label>
-                        <Col sm="6">
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter Description"
-                                name="desc"
-                                value={inputForm.desc}
-                                onChange={handleChanged}
-                            />
-                        </Col>
-                    </Form.Group>
+        <Container>
+            <h1>Edit Product</h1>
+            <Form className="mt-4" onSubmit={handleSubmit}>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Title
+                    </Form.Label>
+                    <Col sm="6">
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter Title"
+                            name="title"
+                            value={inputForm.title}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Col>
+                </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
-                            Price
-                        </Form.Label>
-                        <Col sm="6">
-                            <Form.Control
-                                type="number"
-                                placeholder="Enter Price"
-                                name="price"
-                                value={inputForm.price}
-                                onChange={handleChanged}
-                            />
-                        </Col>
-                    </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Description
+                    </Form.Label>
+                    <Col sm="6">
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter Description"
+                            name="desc"
+                            value={inputForm.desc}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Col>
+                </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
-                            Category
-                        </Form.Label>
-                        <Col sm="6">
-                            <Form.Select
-                                aria-label="Default select example"
-                                name="category"
-                                onChange={handleChanged}
-                            >
-                                <option>Select Category</option>
-                                <option value="Electronics" selected={inputForm.category == "Electronics"}>Electronics</option>
-                                <option value="Fashion" selected={inputForm.category == "Fashion"}>Fashion</option>
-                                <option value="Mobiles" selected={inputForm.category == "Mobiles"}>Mobiles</option>
-                                <option value="Appliances" selected={inputForm.category == "Appliances"}>Appliances</option>
-                            </Form.Select>
-                        </Col>
-                    </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Price
+                    </Form.Label>
+                    <Col sm="6">
+                        <Form.Control
+                            type="number"
+                            placeholder="Enter Price"
+                            name="price"
+                            value={inputForm.price}
+                            onChange={handleChange}
+                            min="0"
+                            step="0.01"
+                            required
+                        />
+                    </Col>
+                </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm="2">
-                            Image
-                        </Form.Label>
-                        <Col sm="6">
-                            <Form.Control
-                                type="file"
-                                placeholder="Enter Image URL"
-                                name="image"
-                                onChange={handleFileChanged}
-                            />
-                        </Col>
-                    </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Category
+                    </Form.Label>
+                    <Col sm="6">
+                        <Form.Select
+                            aria-label="Select category"
+                            name="category"
+                            value={inputForm.category}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Category</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Mobiles">Mobiles</option>
+                            <option value="Appliances">Appliances</option>
+                        </Form.Select>
+                    </Col>
+                </Form.Group>
 
-                    <Button type="submit">Update Product</Button>
-                </Form>
-            </Container>
-        </>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        Image
+                    </Form.Label>
+                    <Col sm="6">
+                        <Form.Control
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileUpload}
+                        />
+                    </Col>
+                </Form.Group>
+
+                <Button type="submit" variant="primary">
+                    Update Product
+                </Button>
+            </Form>
+        </Container>
     );
 };
 
