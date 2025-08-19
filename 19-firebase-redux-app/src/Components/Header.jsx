@@ -8,11 +8,12 @@ const Header = () => {
                 <Container>
                     <Navbar.Brand href="/">FlipKart</Navbar.Brand>
                     <Navbar.Toggle />
-                    <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Collapse className="justify-content-center">
                         <Navbar.Text>
                             <Link to={"/add-product"}>Add Product</Link>
                         </Navbar.Text>
                     </Navbar.Collapse>
+                    <Link className="px-3" to={"/signIn"}>SignIn</Link>
                 </Container>
             </Navbar>
         </>
