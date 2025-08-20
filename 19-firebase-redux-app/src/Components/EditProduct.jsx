@@ -10,6 +10,7 @@ const EditProduct = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { product, isUpdated } = useSelector((state) => state.productReducer);
+    const { user } = useSelector(state => state.userReducer);
 
     const initialState = {
         id: "",
@@ -68,6 +69,12 @@ const EditProduct = () => {
             dispatch(getProductAsync(id));
         }
     }, [id, dispatch]);
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/signIn")
+        }
+    }, [user]);
 
     return (
         <Container>

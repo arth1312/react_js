@@ -1,7 +1,14 @@
-import { Container, Navbar } from "react-bootstrap";
+import { Button, Container, Navbar } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
+import { logOutAsync } from "../Services/Actions/userAction";
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.userReducer);
+    const handleLogOut = () => {
+        dispatch(logOutAsync());
+    }
     return (
         <>
             <Navbar className="bg-body-tertiary">
@@ -13,12 +20,19 @@ const Header = () => {
                             <Link to={"/add-product"}>Add Product</Link>
                         </Navbar.Text>
                     </Navbar.Collapse>
-                    <Link className="px-3" to={"/signIn"}>SignIn</Link>
+                    {
+                        user ? <>
+                            <span>{user.email}</span> &nbsp;&nbsp;&nbsp;<Button onClick={handleLogOut}>LogOut</Button>
+                        </>
+                            :
+                            <Link className="btn btn-warning" to={"/signIn"}>
+                                SignIn
+                            </Link>
+                    }
                 </Container>
             </Navbar>
         </>
     );
 };
-
 
 export default Header;

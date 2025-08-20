@@ -1,5 +1,5 @@
 const intialState = {
-    user: null,
+    user: JSON.parse(sessionStorage.getItem("user")) || null,
     isCreated: false,
     error: "",
     isLoading: false
@@ -14,20 +14,42 @@ export const userReducer = (state = intialState, action) => {
                 isLoading: true,
                 isCreated: false
             }
-        case "ERROR": 
+
+        case "ERROR":
             return {
                 ...state,
                 error: action.payload,
                 isCreated: false
             }
-        case "REGISTER": 
-        return {
-            ...state,
-            error: "",
-            isLoading: false,
-            isCreated: true
-        }
-    
+
+        case "REGISTER":
+            return {
+                ...state,
+                error: "",
+                isLoading: false,
+                isCreated: true
+            }
+
+        case "LOGIN_SUC":
+            sessionStorage.setItem("user", JSON.stringify(action.payload));
+            return {
+                ...state,
+                error: "",
+                isLoading: false,
+                isCreated: false,
+                user: action.payload
+            }
+
+        case "LOGOUT_SUC":
+            sessionStorage.removeItem("user");
+            return {
+                ...state,
+                error: "",
+                isLoading: false,
+                isCreated: false,
+                user: null
+            }
+
         default:
             return state;
     }

@@ -8,6 +8,7 @@ import { uploadImage } from "../Services/imageUpload";
 
 const AddProduct = () => {
     const { isCreated, isError } = useSelector(state => state.productReducer);
+    const { user } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const intialState = {
@@ -50,6 +51,13 @@ const AddProduct = () => {
             navigate("/")
         }
     }, [isCreated]);
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/signIn")
+        }
+    }, [user]);
+
     return (
         <>
             <Container>
